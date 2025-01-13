@@ -27,8 +27,8 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 // extra packages
 
 app.use(rateLimiter({
-  windowsMs: 15*60*1000, // 15 min
-  max:100, //limit each IP to 100 requests per windowMs
+  windowsMs: 60*1000, 
+  max:60, //limit each IP to 60 requests per windowMs
 })
 );
 app.use(express.json());
@@ -36,7 +36,9 @@ app.use(helmet())
 app.use(cors())
 app.use(xss())
 
-
+app.get('/',(req,res)=>{
+  res.send('jobs.API')
+})
 // routes
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs', authenticateUser, jobsRouter)
@@ -44,7 +46,7 @@ app.use('/api/v1/jobs', authenticateUser, jobsRouter)
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
