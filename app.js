@@ -37,9 +37,12 @@ app.use(rateLimiter({
 }))
 
 
-app.get('/',(req,res)=>{
+/*app.get('/',(req,res)=>{
   res.send('jobs API')
-})
+})*/
+
+app.use(express.static("public"));
+
 // routes
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs', authenticateUser, jobsRouter)
